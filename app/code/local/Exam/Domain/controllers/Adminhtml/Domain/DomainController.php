@@ -35,7 +35,6 @@ class Exam_Domain_Adminhtml_Domain_DomainController extends Mage_Adminhtml_Contr
     public function editAction()
     {
         $id = $this->getRequest()->getParam('id');
-        /** @var Learning_Slider_Model_Slide $slide */
         $domain = Mage::getModel('exam_domain/domain')->load($id);
 
         if ($domain->getId() || $id == 0) {
@@ -64,7 +63,6 @@ class Exam_Domain_Adminhtml_Domain_DomainController extends Mage_Adminhtml_Contr
             $delete = (!isset($data['image_url']['delete']) || $data['image_url']['delete'] != '1') ? false : true;
             $data['image_url'] = $this->_saveImage('image_url', $delete);
 
-            /** @var Learning_Slider_Model_Slide $slide */
             $domain = Mage::getModel('exam_domain/domain');
 
             if ($id = $this->getRequest()->getParam('id')) {
@@ -73,6 +71,10 @@ class Exam_Domain_Adminhtml_Domain_DomainController extends Mage_Adminhtml_Contr
 
             try {
                 $domain->addData($data);
+                $products = $this->getRequest()->getPost('products', -1);
+                if ($products != -1) {
+                    $domain->setProductsData(Mage::helper('adminhtml/js')->decodeGridSerializedInput($products));
+                }
                 $domain->save();
 
                 Mage::getSingleton('adminhtml/session')->addSuccess(Mage::helper('exam_domain')->__('The domain has been saved.'));
@@ -104,6 +106,7 @@ class Exam_Domain_Adminhtml_Domain_DomainController extends Mage_Adminhtml_Contr
 
             return;
         }
+
         $this->_redirect('*/*/');
     }
 
@@ -202,5 +205,28 @@ class Exam_Domain_Adminhtml_Domain_DomainController extends Mage_Adminhtml_Contr
             $image = $model->getData($imageAttr);
         }
         return $image;
+    }
+
+    public function _initDomain()
+    {
+        $id = $this->getRequest()->getParam('id');
+        $domain = Mage::getModel('exam_domain/domain')->load($id);
+        if ($domain->getId() || $id == 0) {
+            Mage::register('current_domain', $domain);
+        }
+    }
+
+    public function productsAction(){
+        $this->_initDomain(); //if you don't have such a method then replace it with something that will get you the entity you are editing.
+        $this->loadLayout();
+        $this->getLayout()->getBlock('exam_domain.edit.tab.product')->setDomainProducts($this->getRequest()->getPost('domain_products', null));
+        $this->renderLayout();
+    }
+
+    public function productsgridAction(){
+        $this->_initDomain();
+        $this->loadLayout();
+        $this->getLayout()->getBlock('exam_domain.edit.tab.product')->setDomainProducts($this->getRequest()->getPost('domain_products', null));
+        $this->renderLayout();
     }
 }

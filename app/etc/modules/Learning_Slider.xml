@@ -1,0 +1,8 @@
+<config>
+    <modules>
+        <Learning_Slider>
+            <active>true</active>
+            <codePool>local</codePool>
+        </Learning_Slider>
+    </modules>
+</config>

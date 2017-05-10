@@ -1,0 +1,6 @@
+<?php $slides = $this->getSlides(); ?>
+<?php foreach ($slides as $slide): ?>
+    <?php $src = $slide->getImageUrl(); ?>
+    <?php $name = $slide->getName(); ?>
+    <img style="width:100%;" src="<?php echo Mage::getBaseUrl().'media/slide/'.$slide->getImageUrl(); ?>" alt="">
+<?php endforeach; ?>

@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<layout version="0.1.0">
+    <exam_domain_index_index>
+        <reference name="content">
+            <block type="exam_domain/domain"  name="exam_domain.domain" template="exam/domain.phtml" />
+        </reference>
+    </exam_domain_index_index>
+</layout>

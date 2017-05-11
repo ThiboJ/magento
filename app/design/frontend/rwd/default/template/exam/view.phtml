@@ -1,1 +1,45 @@
-tedsr
+<?php $domain = $this->getCurrentDomain(); ?>
+<div id="current-domain">
+    <div class="banner" style="background-image:url(<?php echo Mage::getBaseUrl().'media/domain/'.$domain->getImageUrl(); ?>)">
+        <?php echo $domain->getName(); ?>
+    </div>
+
+    <div id="map-canvas-view"></div>
+
+    <div class="title">
+        Les produits :
+    </div>
+    <div class="products">
+        <div class="products"></div>
+    </div>
+</div>
+
+
+
+
+
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYpkX0pUn5lR8RKW9mbu03Svrn3Mkfrus"></script>
+<script>
+    function initialize() {
+        var mapOptions = {
+            zoom: 10,
+            center: new google.maps.LatLng(<?php echo $domain->getLongitude(); ?>,<?php echo $domain->getLatitude(); ?>),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas-view'), mapOptions);
+
+        var marker<?php echo $domain->getId(); ?> = new google.maps.Marker({
+            position: new google.maps.LatLng(<?php echo $domain->getLongitude(); ?>,<?php echo $domain->getLatitude(); ?>),
+            map: map,
+            title: 'marker'
+        });
+        var infowindow<?php echo $domain->getId(); ?> = new google.maps.InfoWindow({
+            content: "<B><?php echo $domain->getName(); ?></B>"
+        });
+        google.maps.event.addListener(marker<?php echo $domain->getId(); ?>, 'click', function() {
+            infowindow<?php echo $domain->getId(); ?>.open(map,marker<?php echo $domain->getId(); ?>);
+        });
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>

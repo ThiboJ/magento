@@ -1,3 +1,4 @@
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBYpkX0pUn5lR8RKW9mbu03Svrn3Mkfrus"></script>
 <div id="all-domains">
     <div class="title">
         Nos domaines
@@ -9,7 +10,7 @@
         <?php $id = $domain->getId(); ?>
         <div class="domain">
             <img src="<?php echo Mage::getBaseUrl().'media/domain/'.$src; ?>" alt="">
-            <a class="name">
+            <a class="name" target="_blank" href="<?php echo $this->helper('exam_domain/data')->getDomainUrl($domain); ?>">
                 <?php echo $name; ?>
             </a>
             <div class="products">
@@ -22,12 +23,36 @@
             </div>
         </div>
     <?php endforeach; ?>
-
 </div>
 
-<?php $domains = $this->getDomains(); ?>
-<?php foreach ($domains as $domain): ?>
+<div id="map-canvas"></div>
 
-<li><a href="<?php echo $this->helper('exam_domain/data')->getDomainUrl($domain); ?>" title="<?php echo $this->escapeHtml($domain->getName()); ?>"><?php echo $domain->getName(); ?></a></li>
+<script>
+    function initialize() {
+        var mapOptions = {
+            zoom: 5,
+            center: new google.maps.LatLng(46.863936, 2.527399),
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById('map-canvas'), mapOptions);
 
-<?php endforeach; ?>
+
+        <?php foreach ($domains as $domain): ?>
+
+        var marker<?php echo $domain->getId(); ?> = new google.maps.Marker({
+            position: new google.maps.LatLng(<?php echo $domain->getLongitude(); ?>,<?php echo $domain->getLatitude(); ?>),
+            map: map,
+            title: 'marker'
+        });
+        var infowindow<?php echo $domain->getId(); ?> = new google.maps.InfoWindow({
+            content: "<B><?php echo $domain->getName(); ?></B>"
+        });
+        google.maps.event.addListener(marker<?php echo $domain->getId(); ?>, 'click', function() {
+            infowindow<?php echo $domain->getId(); ?>.open(map,marker<?php echo $domain->getId(); ?>);
+        });
+
+        <?php endforeach; ?>
+    }
+
+    google.maps.event.addDomListener(window, 'load', initialize);
+</script>

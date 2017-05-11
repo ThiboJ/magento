@@ -1,10 +1,27 @@
-<?php $domains = $this->getDomains(); ?>
-<?php foreach ($domains as $domain): ?>
-    <?php $src = $domain->getImageUrl(); ?>
-    <?php $name = $domain->getName(); ?>
-    <img style="width:100%;" src="<?php echo Mage::getBaseUrl().'media/slide/'.$domain->getImageUrl(); ?>" alt="">
-    <br/>
-    <?php echo $domain->getLatitude(); ?>
-    <br/>
-    <?php echo $domain->getLongitude(); ?>
-<?php endforeach; ?>
+<div id="all-domains">
+    <div class="title">
+        Nos domaines
+    </div>
+    <?php $domains = $this->getDomains(); ?>
+    <?php foreach ($domains as $domain): ?>
+        <?php $src = $domain->getImageUrl(); ?>
+        <?php $name = $domain->getName(); ?>
+        <?php $id = $domain->getId(); ?>
+        <div class="domain">
+            <img src="<?php echo Mage::getBaseUrl().'media/domain/'.$src; ?>" alt="">
+            <a class="name">
+                <?php echo $name; ?>
+            </a>
+            <div class="products">
+                <?php $nbProducts = Mage::Helper("exam_domain")->getNbProductByDomain($id); ?>
+                <?php if ($nbProducts>1): ?>
+                    (<?php echo $nbProducts;?> produits)
+                <?php else: ?>
+                    (<?php echo $nbProducts;?> produit)
+                <?php endif; ?>
+            </div>
+        </div>
+    <?php endforeach; ?>
+
+</div>
+    

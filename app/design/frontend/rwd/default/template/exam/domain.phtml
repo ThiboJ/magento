@@ -8,17 +8,22 @@
         <?php $name = $domain->getName(); ?>
         <?php $id = $domain->getId(); ?>
         <div class="domain">
-            <img src="<?php echo Mage::getBaseUrl().'media/domain/'.$src; ?>" alt="">
-            <a class="name" target="_blank" href="<?php echo $this->helper('exam_domain/data')->getDomainUrl($domain); ?>">
-                <?php echo $name; ?>
-            </a>
-            <div class="products">
-                <?php $nbProducts = Mage::Helper("exam_domain")->getNbProductByDomain($id); ?>
-                <?php if ($nbProducts>1): ?>
-                    (<?php echo $nbProducts;?> produits)
-                <?php else: ?>
-                    (<?php echo $nbProducts;?> produit)
-                <?php endif; ?>
+            <div class="container">
+                <img src="<?php echo Mage::getBaseUrl().'media/domain/'.$src; ?>" alt="">
+                <a class="name" target="_blank" href="<?php echo $this->helper('exam_domain/data')->getDomainUrl($domain); ?>">
+                    <?php echo $name; ?>
+                </a>
+                <div class="products">
+                    <?php $nbProducts = Mage::Helper("exam_domain")->getNbProductByDomain($id); ?>
+                    <?php if ($nbProducts>1): ?>
+                        (<?php echo $nbProducts;?> produits)
+                    <?php else: ?>
+                        (<?php echo $nbProducts;?> produit)
+                    <?php endif; ?>
+                </div>
+                <a class="link button" target="_blank" href="<?php echo $this->helper('exam_domain/data')->getDomainUrl($domain); ?>">
+                    Voir les produits
+                </a>
             </div>
         </div>
     <?php endforeach; ?>

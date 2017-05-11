@@ -46,6 +46,20 @@ class Exam_Domain_Block_Adminhtml_Domain_Grid extends Mage_Adminhtml_Block_Widge
             'index'  => 'name'
         ));
 
+        $this->addColumn('latitude', array(
+            'header' => $this->__('Latitude'),
+            'align'  => 'right',
+            'width'  => '100px',
+            'index'  => 'latitude'
+        ));
+
+        $this->addColumn('longitude', array(
+            'header' => $this->__('Longitude'),
+            'align'  => 'right',
+            'width'  => '100px',
+            'index'  => 'longitude'
+        ));
+
         $this->addColumn('is_active', array(
             'header'  => $this->__('Status'),
             'index'   => 'is_active',

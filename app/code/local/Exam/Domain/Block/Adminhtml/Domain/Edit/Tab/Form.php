@@ -18,6 +18,20 @@ class Exam_Domain_Block_Adminhtml_Domain_Edit_Tab_Form extends Mage_Adminhtml_Bl
             'required' => true
         ));
 
+        $fieldset->addField('latitude', 'text', array(
+            'label'    => Mage::helper('exam_domain')->__('Latitude'),
+            'name'     => 'latitude',
+            'class'    => 'required-entry',
+            'required' => true
+        ));
+
+        $fieldset->addField('longitude', 'text', array(
+            'label'    => Mage::helper('exam_domain')->__('Longitude'),
+            'name'     => 'longitude',
+            'class'    => 'required-entry',
+            'required' => true
+        ));
+
         $fieldset->addField('image_url', 'image', array(
             'label'     => Mage::helper('exam_domain')->__('Image'),
             'required'  => false,

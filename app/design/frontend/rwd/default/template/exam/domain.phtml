@@ -3,4 +3,8 @@
     <?php $src = $domain->getImageUrl(); ?>
     <?php $name = $domain->getName(); ?>
     <img style="width:100%;" src="<?php echo Mage::getBaseUrl().'media/slide/'.$domain->getImageUrl(); ?>" alt="">
+    <br/>
+    <?php echo $domain->getLatitude(); ?>
+    <br/>
+    <?php echo $domain->getLongitude(); ?>
 <?php endforeach; ?>

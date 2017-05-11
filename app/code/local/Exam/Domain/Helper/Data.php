@@ -10,4 +10,12 @@ class Exam_Domain_Helper_Data extends Mage_Core_Helper_Abstract
 
         return count($rows);
     }
+    public function getDomainUrl(Exam_Domain_Model_Domain $domain)
+    {
+        if (!$domain instanceof Exam_Domain_Model_Domain){
+            return '#';
+        }
+
+        return $this->_getUrl('exam_domain/index/view',['url' => $domain->getUrlKey()]);
+    }
 }

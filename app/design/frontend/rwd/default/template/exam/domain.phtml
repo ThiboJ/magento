@@ -24,4 +24,10 @@
     <?php endforeach; ?>
 
 </div>
-    
+
+<?php $domains = $this->getDomains(); ?>
+<?php foreach ($domains as $domain): ?>
+
+<li><a href="<?php echo $this->helper('exam_domain/data')->getDomainUrl($domain); ?>" title="<?php echo $this->escapeHtml($domain->getName()); ?>"><?php echo $domain->getName(); ?></a></li>
+
+<?php endforeach; ?>

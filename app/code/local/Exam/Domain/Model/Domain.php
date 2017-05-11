@@ -28,6 +28,12 @@ class Exam_Domain_Model_Domain extends Mage_Core_Model_Abstract
         return $this->_productInstance;
     }
 
+    protected function _beforeSave()
+    {
+        $this->_prepareUrlKey();
+        return parent::_beforeSave();
+    }
+
     protected function _afterSave() {
         $this->getProductInstance()->saveDomainRelation($this);
         return parent::_afterSave();
@@ -46,6 +52,10 @@ class Exam_Domain_Model_Domain extends Mage_Core_Model_Abstract
     public function getSelectedProductsCollection(){
         $collection = $this->getProductInstance()->getProductCollection($this);
         return $collection;
+    }
+    protected function _prepareUrlKey()
+    {
+        return $this->setUrlKey(Mage::getModel('catalog/product_url')->formatUrlKey($this->getName()));
     }
 
 }

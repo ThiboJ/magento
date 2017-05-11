@@ -5,6 +5,11 @@
             <block type="exam_domain/domain"  name="exam_domain.domain" template="exam/domain.phtml" />
         </reference>
     </exam_domain_index_index>
+    <exam_domain_index_view>
+        <reference name="content">
+            <block type="exam_domain/view" name="exam_domain.view" template="exam/view.phtml" />
+        </reference>
+    </exam_domain_index_view>
     <default>
         <reference name="head">
             <action method="addCss"><stylesheet>css/exam/domain.css</stylesheet></action>

@@ -31,6 +31,7 @@ class Exam_Domain_Model_Domain extends Mage_Core_Model_Abstract
     protected function _beforeSave()
     {
         $this->_prepareUrlKey();
+
         return parent::_beforeSave();
     }
 
@@ -49,13 +50,30 @@ class Exam_Domain_Model_Domain extends Mage_Core_Model_Abstract
         }
         return $this->getData('selected_products');
     }
+
     public function getSelectedProductsCollection(){
         $collection = $this->getProductInstance()->getProductCollection($this);
         return $collection;
     }
+
     protected function _prepareUrlKey()
     {
-        return $this->setUrlKey(Mage::getModel('catalog/product_url')->formatUrlKey($this->getName()));
+        $nbRows = $this->countDomain();
+        if ($nbRows == 0) {
+            $this->setUrlKey(Mage::getModel('catalog/product_url')->formatUrlKey($this->getName()));
+        }else{
+            $this->setUrlKey(Mage::getModel('catalog/product_url')->formatUrlKey($this->getName().'-'.++$nbRows));
+        }
+         return $this;
+    }
+
+    protected function countDomain()
+    {
+        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
+        $query = "Select url_key from exam_domain_domain WHERE url_key LIKE '".$this->getName()."%';";
+        $rows = $connection->fetchAll($query);
+
+        return count($rows);
     }
 
 }

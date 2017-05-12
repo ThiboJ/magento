@@ -68,7 +68,7 @@ input::-ms-clear {
 .ais-refinement-list--item__active > div > .ais-refinement-list--label,
 .ais-price-ranges--item__active > .ais-price-ranges--link{
   font-weight: bold;
-  box-shadow: inset 3px 0 0 #3399cc;
+  box-shadow: inset 3px 0 0 #875016;
 }
 
 .ais-hierearchical-link-wrapper, .ais-refinement-list--item {

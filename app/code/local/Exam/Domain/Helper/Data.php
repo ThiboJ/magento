@@ -2,13 +2,22 @@
 
 class Exam_Domain_Helper_Data extends Mage_Core_Helper_Abstract
 {
+    const IMAGE_FOLDER = "domain";
+    const IMAGE_PRODUCT_FOLDER = "catalog/product";
 
-    public function getNbProductByDomain( $idDomain ){
-        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $query      = "Select * from exam_domain_product where domain_id = ".$idDomain.";";
-        $rows       = $connection->fetchAll($query);
+    /**
+     * Renvoie l'URL de l'image
+     * @param $filename
+     * @return string
+     */
+    public function getImageUrl($filename)
+    {
+        return Mage::getBaseUrl('media') . self::IMAGE_FOLDER . '/' . $filename;
+    }
 
-        return count($rows);
+    public function getProductImageUrl($filename)
+    {
+            return Mage::getBaseUrl('media') . self::IMAGE_PRODUCT_FOLDER . $filename;
     }
 
     public function getDomainUrl(Exam_Domain_Model_Domain $domain)
@@ -20,11 +29,19 @@ class Exam_Domain_Helper_Data extends Mage_Core_Helper_Abstract
         return $this->_getUrl('exam_domain/index/view',['url' => $domain->getUrlKey()]);
     }
 
-    public function getProductsByDomain( $idDomain ){
-        $connection = Mage::getSingleton('core/resource')->getConnection('core_read');
-        $query      = "Select * from exam_domain_product where domain_id = ".$idDomain.";";
-        $rows       = $connection->fetchAll($query);
-
-        return $rows;
+    public function getProductsByDomain( $domain , $onlySize = false ){
+        if($onlySize){
+            $collection = $domain->getSelectedProductsCollection()
+                ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+                ->addAttributeToFilter('status', array('eq' => 1));
+            $count = ( count($collection)==0 ? "0" : count($collection) );
+            return $count;
+        }
+        else{
+            return $domain->getSelectedProductsCollection()
+                ->addAttributeToSelect(array("price","name","product_url","image"))
+                ->addFieldToFilter('visibility', Mage_Catalog_Model_Product_Visibility::VISIBILITY_BOTH)
+                ->addAttributeToFilter('status', array('eq' => 1));
+        }
     }
 }

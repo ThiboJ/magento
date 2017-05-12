@@ -10,13 +10,10 @@
         Les produits :
     </div>
     <div class="products">
-        <?php $relations = Mage::Helper("exam_domain")->getProductsByDomain($domain->getId()); ?>
-        <?php foreach ($relations as $relation): ?>
-            <?php $idProduct = $relation["product_id"]; ?>
-            <?php $product = $product = Mage::getModel('catalog/product')->load($idProduct); ?>
-            <?php //zend_debug::dump($product); die;?>
+        <?php $products = Mage::Helper("exam_domain")->getProductsByDomain($domain); ?>
+        <?php foreach ($products as $product): ?>
             <div class="product">
-                <img src="<?php echo Mage::getBaseUrl().'media/catalog/product'.$product->getImage(); ?>" alt="">
+                <img src="<?php echo Mage::Helper("exam_domain")->getProductImageUrl($product->getImage()); ?>" alt="">
                 <div class="name">
                     <?php echo $product->getName(); ?>
                 </div>
@@ -24,8 +21,8 @@
                     <?php echo round($product->getPrice(),2); ?>
                     <?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
                 </div>
-                <a href="<?php echo Mage::getBaseUrl().$product->getUrlPath(); ?>" class="button">
-                    Acheter
+                <a href="<?php echo $product->getProductUrl(); ?>" class="button">
+                    Voir
                 </a>
             </div>
         <?php endforeach; ?>

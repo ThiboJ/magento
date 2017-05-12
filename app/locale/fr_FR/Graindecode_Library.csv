@@ -1,0 +1,16 @@
+# Frontend
+
+# Adminhtml
+    # Menu
+        "Manage Medias","Gérer les médias"
+        "Library","Bibliothéque"
+    # Media
+        "Add Media","Ajouter un média"
+        "Edit Media '%s'","Editer le média '%s'"
+        "Save Media","Sauvegarder le média"
+        "Delete Media","Supprimer le média"
+        "Media Information","Informations du média"
+    # Flashes
+        # Media
+            "Media was successfully deleted", "Le média a bien été supprimé"
+            "The media has been saved.", "Le média a bien été sauvegardé."

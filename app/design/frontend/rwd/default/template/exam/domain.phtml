@@ -9,12 +9,12 @@
         <?php $id = $domain->getId(); ?>
         <div class="domain">
             <div class="container">
-                <img src="<?php echo Mage::getBaseUrl().'media/domain/'.$src; ?>" alt="">
+                <img src="<?php echo Mage::getBaseUrl("media").'/domain/'.$src; ?>" alt="">
                 <a class="name" target="_blank" href="<?php echo $this->helper('exam_domain/data')->getDomainUrl($domain); ?>">
                     <?php echo $name; ?>
                 </a>
                 <div class="products">
-                    <?php $nbProducts = Mage::Helper("exam_domain")->getNbProductByDomain($id); ?>
+                    <?php $nbProducts = Mage::Helper("exam_domain")->getProductsByDomain($domain,true); ?>
                     <?php if ($nbProducts>1): ?>
                         (<?php echo $nbProducts;?> produits)
                     <?php else: ?>
@@ -42,19 +42,20 @@
 
 
         <?php foreach ($domains as $domain): ?>
-
-        var marker<?php echo $domain->getId(); ?> = new google.maps.Marker({
-            position: new google.maps.LatLng(<?php echo $domain->getLongitude(); ?>,<?php echo $domain->getLatitude(); ?>),
-            map: map,
-            title: 'marker'
-        });
-        var infowindow<?php echo $domain->getId(); ?> = new google.maps.InfoWindow({
-            content: "<B><?php echo $domain->getName(); ?></B>"
-        });
-        google.maps.event.addListener(marker<?php echo $domain->getId(); ?>, 'click', function() {
-            infowindow<?php echo $domain->getId(); ?>.open(map,marker<?php echo $domain->getId(); ?>);
-        });
-
+            var marker<?php echo $domain->getId(); ?> = new google.maps.Marker({
+                position: new google.maps.LatLng(<?php echo $domain->getLongitude(); ?>,<?php echo $domain->getLatitude(); ?>),
+                map: map,
+                title: 'marker'
+            });
+            var infowindow<?php echo $domain->getId(); ?> = new google.maps.InfoWindow({
+                content: "<B><?php echo $domain->getName(); ?></B>"
+            });
+            google.maps.event.addListener(marker<?php echo $domain->getId(); ?>, 'click', function() {
+                infowindow<?php echo $domain->getId(); ?>.open(map,marker<?php echo $domain->getId(); ?>);
+            });
+            google.maps.event.addListener(map, "click", function(event) {
+                infowindow<?php echo $domain->getId(); ?>.close();
+            });
         <?php endforeach; ?>
     }
 

@@ -61,6 +61,15 @@ class Exam_Domain_Block_Adminhtml_Domain_Edit_Tab_Product extends Mage_Adminhtml
             'currency_code' => (string) Mage::getStoreConfig(Mage_Directory_Model_Currency::XML_PATH_CURRENCY_BASE),
             'index' => 'price'
         ));
+        /*
+        $this->addColumn('status', array(
+            'header' => Mage::helper('sales')->__('Status'),
+            'index' => 'status',
+            'type'  => 'options',
+            'width' => '70px',
+            'options' => Mage::getSingleton('sales/order_config')->getStatuses()
+        ));
+        */
         $this->addColumn('position', array(
             'header'=> Mage::helper('catalog')->__('Position'),
             'name'  => 'position',

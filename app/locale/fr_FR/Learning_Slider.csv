@@ -1,0 +1,16 @@
+# Frontend
+
+# Adminhtml
+    # Menu
+        "Manage Slides","Gérer les slides"
+        "Slider","Caroussel"
+    # Slide
+        "Add Slide","Ajouter une slide"
+        "Edit Slide '%s'","Editer la slide '%s'"
+        "Save Slide","Sauvegarder la slide"
+        "Delete Slide","Supprimer la slide"
+        "Slide Information","Informations de la slide"
+    # Flashes
+        # Slide
+            "Slide was successfully deleted", "La slide a bien été supprimée"
+            "The slide has been saved.", "La slide a bien été sauvegardée."

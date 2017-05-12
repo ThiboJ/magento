@@ -7,7 +7,7 @@
     <div id="map-canvas-view"></div>
 
     <div class="title">
-        Les produits :
+        <?php echo $this->__('Products :') ?>
     </div>
     <div class="products">
         <?php $products = Mage::Helper("exam_domain")->getProductsByDomain($domain); ?>
@@ -22,7 +22,7 @@
                     <?php echo Mage::app()->getLocale()->currency(Mage::app()->getStore()->getCurrentCurrencyCode())->getSymbol(); ?>
                 </div>
                 <a href="<?php echo $product->getProductUrl(); ?>" class="button">
-                    Voir
+                    <?php echo $this->__('See the product') ?>
                 </a>
             </div>
         <?php endforeach; ?>

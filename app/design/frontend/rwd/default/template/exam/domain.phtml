@@ -1,6 +1,6 @@
 <div id="all-domains">
     <div class="title">
-        Nos domaines
+        <?php echo $this->__('Our domains') ?>
     </div>
     <?php $domains = $this->getDomains(); ?>
     <?php foreach ($domains as $domain): ?>
@@ -16,13 +16,13 @@
                 <div class="products">
                     <?php $nbProducts = Mage::Helper("exam_domain")->getProductsByDomain($domain,true); ?>
                     <?php if ($nbProducts>1): ?>
-                        (<?php echo $nbProducts;?> produits)
+                        (<?php echo $nbProducts;?> <?php echo $this->__('products') ?>)
                     <?php else: ?>
-                        (<?php echo $nbProducts;?> produit)
+                        (<?php echo $nbProducts;?> <?php echo $this->__('products') ?>)
                     <?php endif; ?>
                 </div>
                 <a class="link button" target="_blank" href="<?php echo $this->helper('exam_domain/data')->getDomainUrl($domain); ?>">
-                    Voir les produits
+                    <?php echo $this->__('See the products') ?>
                 </a>
             </div>
         </div>

@@ -71,6 +71,15 @@
                 </exam_domain>
             </updates>
         </layout>
+        <translate>
+            <modules>
+                <translations>
+                    <files>
+                        <default>Exam_Domain.csv</default>
+                    </files>
+                </translations>
+            </modules>
+        </translate>
     </frontend>
     <admin>
         <routers>
